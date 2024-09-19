@@ -10,12 +10,12 @@ export default function Home() {
   const [results, setResults] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-
+  const endpoint = `${process.env.NEXT_PUBLIC_API_ENDPOINT}${encodeURIComponent(query)}`;
   const handleSearch = async () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `http://127.0.0.1:5000/search?query=${encodeURIComponent(query)}`
+        endpoint
       );
       if (!response.ok) {
         throw new Error("Network response was not ok");
