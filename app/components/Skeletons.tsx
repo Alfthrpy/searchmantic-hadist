@@ -1,6 +1,6 @@
 export default function Skeleton(){
     return (
-        <div className="animate-pulse flex space-x-4">
+        <div className="animate-pulse flex space-x-4 min-h-[150px]">
           <div className="w-full">
             {/* Skeleton untuk teks id */}
             <div className="h-4 bg-gray-200 rounded mb-2"></div>

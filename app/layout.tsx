@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import Sidebar from "./components/Sidebar";
+
+import { Amiri, Inter } from '@next/font/google';
+
+const amiri = Amiri({ subsets: ["arabic"], weight: ["400", "700"] });
+const inter = Inter({ subsets: ["latin"], weight: ["400", "700"] });
+
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -24,17 +31,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="autumn">
       <head>
-      <link
-            href="https://fonts.googleapis.com/css2?family=Amiri&display=swap"
-            rel="stylesheet"
-          />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Amiri&display=swap"
+          rel="stylesheet"
+        />
+        <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet"/>
+        
       </head>
+
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${inter.className} ${amiri.className}antialiased`}
       >
-        {children}
+        <Sidebar main={children} />
       </body>
     </html>
   );
