@@ -15,9 +15,6 @@ export default function Home() {
   const [results, setResults] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const endpoint = `${process.env.NEXT_PUBLIC_API_ENDPOINT}${encodeURIComponent(
-    query
-  )}`;
 
 
 
@@ -34,18 +31,27 @@ export default function Home() {
     setPlaceholder(placeholderOptions[Math.floor(Math.random() * placeholderOptions.length)]);
   }, []);
 
-  const handleSearch = async () => {
+
+  const handleSearch2 = async () => {
     try {
       setError("");
       setLoading(true);
-      const response = await fetch(endpoint);
+  
+      const queryParams = new URLSearchParams({
+        query: query, // Input pengguna
+        hadits: "hadist_shahih_bukhari", // Input pengguna
+      });
+  
+      const response = await fetch(`/api/proxy-search?${queryParams.toString()}`);
+  
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
+  
       const data = await response.json();
-      setError("");
       setResults(data || []);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      setError("");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       setError(error.message);
     } finally {
@@ -85,7 +91,7 @@ export default function Home() {
             </label>
 
           <div className="flex justify-center w-full mt-2">
-            <ButtonSearch funClick={handleSearch} conditionLoading={loading} />
+            <ButtonSearch funClick={handleSearch2} conditionLoading={loading} />
           </div>
         </div>
 
@@ -131,7 +137,7 @@ export default function Home() {
                             </p>
                           </div>
                           <p
-                            className="text-xl text-justify font-amiri mt-4" dir="rtl"
+                            className="text-xl text-justify font-amiri mt-4 " dir="rtl"
                             style={{ lineHeight: "2" }}
                           >
                             {item.text_arab}
