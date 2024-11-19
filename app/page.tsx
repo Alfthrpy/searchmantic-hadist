@@ -83,38 +83,21 @@ export default function Home() {
   };
 
   const handleShare = (arabicText: string, translation: string) => {
-    const fullText = `${arabicText}\n\n${translation}`;
-    if (navigator.share) {
-      navigator
-        .share({
-          title: "Hadits",
-          text: fullText,
-        })
-        .then(() => {
-          Swal.fire({
-            title: "Berhasil!",
-            text: "Hadits telah dibagikan.",
-            icon: "success",
-            confirmButtonText: "OK",
-          });
-        })
-        .catch((error) => {
-          Swal.fire({
-            title: "Gagal!",
-            text: `Tidak dapat membagikan teks: ${error.message}`,
-            icon: "error",
-            confirmButtonText: "Coba Lagi",
-          });
-        });
-    } else {
-      Swal.fire({
-        title: "Fitur Tidak Didukung!",
-        text: "Browser Anda tidak mendukung fitur share.",
-        icon: "info",
-        confirmButtonText: "OK",
+  const fullText = `${arabicText}\n\n${translation}`;
+  if (navigator.share) {
+    navigator
+      .share({
+        title: "Hadits",
+        text: fullText,
+      })
+      .catch((error) => {
+        console.error("Gagal membagikan teks:", error.message);
       });
-    }
-  };
+  } else {
+    console.info("Browser Anda tidak mendukung fitur share.");
+  }
+};
+
 
   return (
     <div className="min-h-screen flex flex-col items-center pt-6">

@@ -92,31 +92,14 @@ export default function Home({ params:  {hadits}  }: { params: { hadits: string 
           title: "Hadits",
           text: fullText,
         })
-        .then(() => {
-          Swal.fire({
-            title: "Berhasil!",
-            text: "Hadits telah dibagikan.",
-            icon: "success",
-            confirmButtonText: "OK",
-          });
-        })
         .catch((error) => {
-          Swal.fire({
-            title: "Gagal!",
-            text: `Tidak dapat membagikan teks: ${error.message}`,
-            icon: "error",
-            confirmButtonText: "Coba Lagi",
-          });
+          console.error("Gagal membagikan teks:", error.message);
         });
     } else {
-      Swal.fire({
-        title: "Fitur Tidak Didukung!",
-        text: "Browser Anda tidak mendukung fitur share.",
-        icon: "info",
-        confirmButtonText: "OK",
-      });
+      console.info("Browser Anda tidak mendukung fitur share.");
     }
   };
+  
 
   return (
     <>
