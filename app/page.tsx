@@ -12,6 +12,7 @@ import formatTitle from "@/utils/formatTitle";
 
 export default function Home() {
   const [query, setQuery] = useState("");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [results, setResults] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -51,6 +52,7 @@ export default function Home() {
       const data = await response.json();
       setResults(data || []);
       setError("");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       setError(error.message);
     } finally {
