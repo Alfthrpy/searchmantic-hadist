@@ -9,6 +9,10 @@ interface SidebarProps {
 const items = [
   { label: "Shahih Bukhari", href: "#" },
   { label: "Shahih Muslim", href: "#" },
+  { label: "Sunan Tirmidzi", href: "#" },
+  { label: "Sunan An Nasa'i", href: "#" },
+  { label: "Sunan Abu Dawud", href: "#" },
+  { label: "Sunan Ibnu Majah", href: "#" },
 ];
 
 export default function Sidebar({ main }: SidebarProps) {

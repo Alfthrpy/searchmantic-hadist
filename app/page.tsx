@@ -62,10 +62,10 @@ export default function Home() {
   return (
     <>
       <div className="min-h-screen flex flex-col items-center pt-6">
-        <h1 className="text-lg sm:text-xl md:text-2xl lg:text-4xl font-bold text-neutral mb-4">
+        <h1 className="text-center mt-16 text-[1.5rem] font-bold text-[#826a5c] sm:text-[1.875rem] md:text-[2.25rem] lg:text-[2.5rem]">
           Searchmantic Hadist
         </h1>
-        <div className="w-full max-w-lg flex flex-col items-center">
+        <div className="w-full max-w-lg flex flex-col items-center mt-4">
             <label className="input input-bordered w-full flex items-center gap-2 max-w-xs mx-auto md:max-w-full">
               <input
                 type="text"
