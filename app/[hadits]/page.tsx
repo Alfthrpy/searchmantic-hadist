@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
-import Skeleton from "./components/Skeletons";
+import Skeleton from "../components/Skeletons";
 
-import ButtonSearch from "./components/Button";
+import ButtonSearch from "../components/Button";
 import {
   BookOpenIcon,
   DocumentDuplicateIcon,
@@ -10,13 +10,14 @@ import {
 } from "@heroicons/react/16/solid";
 import formatTitle from "@/utils/formatTitle";
 
-export default function Home() {
+
+
+export default function Home({ params:  {hadits}  }: { params: { hadits: string } }) {
   const [query, setQuery] = useState("");
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [results, setResults] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-
 
 
   const placeholderOptions = [
@@ -40,7 +41,7 @@ export default function Home() {
   
       const queryParams = new URLSearchParams({
         query: query, // Input pengguna
-        hadits: "hadist_shahih_bukhari", // Input pengguna
+        hadits, 
       });
   
       const response = await fetch(`/api/proxy-search?${queryParams.toString()}`);
@@ -50,6 +51,7 @@ export default function Home() {
       }
   
       const data = await response.json();
+
       setResults(data || []);
       setError("");
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
