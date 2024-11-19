@@ -1,4 +1,7 @@
+'use client';
+
 import React from "react";
+import { usePathname } from "next/navigation"; // Import usePathname
 import Hamburger from "./Hamburger";
 import Image from "next/image";
 
@@ -7,15 +10,18 @@ interface SidebarProps {
 }
 
 const items = [
-  { label: "Shahih Bukhari", href: "#" },
-  { label: "Shahih Muslim", href: "#" },
-  { label: "Sunan Tirmidzi", href: "#" },
-  { label: "Sunan An Nasa'i", href: "#" },
-  { label: "Sunan Abu Dawud", href: "#" },
-  { label: "Sunan Ibnu Majah", href: "#" },
+  { label: "hadist_shahih_bukhari", href: "/hadist_shahih_bukhari" },
+  { label: "hadist_shahih_muslim", href: "/hadist_shahih_muslim" },
+  { label: "hadist_sunan_tirmidzi", href: "/hadist_sunan_tirmidzi" },
+  { label: "hadist_sunan_nasai", href: "/hadist_sunan_nasai" },
+  { label: "hadist_sunan_abu_daud", href: "/hadist_sunan_abu_daud" },
+  { label: "hadist_sunan_ibnu_majah", href: "/hadist_sunan_ibnu_majah" },
 ];
 
+
 export default function Sidebar({ main }: SidebarProps) {
+  const pathname = usePathname(); // Dapatkan URI aktif
+
   return (
     <div className="drawer drawer-mobile">
       <input id="my-drawer" type="checkbox" className="drawer-toggle" />
@@ -33,26 +39,35 @@ export default function Sidebar({ main }: SidebarProps) {
         ></label>
 
         <ul className="menu bg-base-200 text-base-content w-80 p-4 min-h-full">
-          <h1 className="text-xl font-bold text-neutral ml-4 mb-4">Searchmantic Hadist</h1>
+          <h1 className="text-xl font-bold text-neutral ml-4 mb-4">
+            Searchmantic Hadist
+          </h1>
           <li>
-          <h2 className="menu-title flex items-center">
-            <Image
-              src="/book-bookmark.svg"
-              alt="icon"
-              width={20}
-              height={20}
-              className="mr-2 text-primary"
-            />
-            Source
-          </h2>
+            <h2 className="menu-title flex items-center">
+              <Image
+                src="/book-bookmark.svg"
+                alt="icon"
+                width={20}
+                height={20}
+                className="mr-2 text-primary"
+              />
+              Source
+            </h2>
 
-          <ul>
-            {items.map((item) => (
-              <li key={item.label}>
-                <a href={item.href} className="text-md text-neutral">{item.label}</a>
-              </li>
-            ))}
-          </ul>
+            <ul>
+              {items.map((item) => (
+                <li key={item.label}>
+                  <a
+                    href={item.href}
+                    className={`text-md text-neutral ${
+                      pathname === item.href ? "active" : ""
+                    }`}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </li>
         </ul>
       </div>
