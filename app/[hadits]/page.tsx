@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Skeleton from "../components/Skeletons";
-
+import Swal from "sweetalert2";
 import ButtonSearch from "../components/Button";
 import {
   BookOpenIcon,
@@ -59,6 +59,62 @@ export default function Home({ params:  {hadits}  }: { params: { hadits: string 
       setError(error.message);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleCopy = (arabicText: string, translation: string) => {
+    const fullText = `${arabicText}\n\n${translation}`;
+    navigator.clipboard
+      .writeText(fullText)
+      .then(() => {
+        Swal.fire({
+          title: "Berhasil!",
+          text: "Hadits telah disalin ke clipboard.",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: "Gagal!",
+          text: `Tidak dapat menyalin teks: ${error.message}`,
+          icon: "error",
+          confirmButtonText: "Coba Lagi",
+        });
+      });
+  };
+
+  const handleShare = (arabicText: string, translation: string) => {
+    const fullText = `${arabicText}\n\n${translation}`;
+    if (navigator.share) {
+      navigator
+        .share({
+          title: "Hadits",
+          text: fullText,
+        })
+        .then(() => {
+          Swal.fire({
+            title: "Berhasil!",
+            text: "Hadits telah dibagikan.",
+            icon: "success",
+            confirmButtonText: "OK",
+          });
+        })
+        .catch((error) => {
+          Swal.fire({
+            title: "Gagal!",
+            text: `Tidak dapat membagikan teks: ${error.message}`,
+            icon: "error",
+            confirmButtonText: "Coba Lagi",
+          });
+        });
+    } else {
+      Swal.fire({
+        title: "Fitur Tidak Didukung!",
+        text: "Browser Anda tidak mendukung fitur share.",
+        icon: "info",
+        confirmButtonText: "OK",
+      });
     }
   };
 
@@ -124,10 +180,17 @@ export default function Home({ params:  {hadits}  }: { params: { hadits: string 
                     >
                       <div className="card bg-inherit flex">
                         <div className="absolute left-0 top-0 flex flex-col space-y-2 items-center">
-                          <button className="p-1">
+                          <button className="p-1"
+                          onClick={() =>
+                            handleCopy(item.text_arab, item.text)
+                          }
+                          >
                             <DocumentDuplicateIcon className="h-5 w-5 text-accent hover:text-neutral" />
                           </button>
-                          <button className="p-1">
+                          <button className="p-1"
+                          onClick={() =>
+                            handleShare(item.text_arab, item.text)
+                          }>
                             <ShareIcon className="h-5 w-5 text-accent hover:text-neutral" />
                           </button>
                         </div>

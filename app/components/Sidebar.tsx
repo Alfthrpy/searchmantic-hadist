@@ -10,12 +10,12 @@ interface SidebarProps {
 }
 
 const items = [
-  { label: "hadist_shahih_bukhari", href: "/hadist_shahih_bukhari" },
-  { label: "hadist_shahih_muslim", href: "/hadist_shahih_muslim" },
-  { label: "hadist_sunan_tirmidzi", href: "/hadist_sunan_tirmidzi" },
-  { label: "hadist_sunan_nasai", href: "/hadist_sunan_nasai" },
-  { label: "hadist_sunan_abu_daud", href: "/hadist_sunan_abu_daud" },
-  { label: "hadist_sunan_ibnu_majah", href: "/hadist_sunan_ibnu_majah" },
+  { label: "Hadist Shahih Bukhari", href: "/hadist_shahih_bukhari" },
+  { label: "Hadist Shahih Muslim", href: "/hadist_shahih_muslim" },
+  { label: "Hadist Sunan Tirmidzi", href: "/hadist_sunan_tirmidzi" },
+  { label: "Hadist Sunan Nasai", href: "/hadist_sunan_nasai" },
+  { label: "Hadist Sunan Abu Daud", href: "/hadist_sunan_abu_daud" },
+  { label: "Hadist Sunan Ibnu Majah", href: "/hadist_sunan_ibnu_majah" },
 ];
 
 
