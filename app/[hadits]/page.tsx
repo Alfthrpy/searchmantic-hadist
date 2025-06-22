@@ -9,21 +9,6 @@ interface PageProps {
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
-  const handleShare = (arabicText: string, translation: string) => {
-    const fullText = `${arabicText}\n\n${translation}`;
-    if (navigator.share) {
-      navigator
-        .share({
-          title: "Hadits",
-          text: fullText,
-        })
-        .catch((error) => {
-          console.error("Gagal membagikan teks:", error.message);
-        });
-    } else {
-      console.info("Browser Anda tidak mendukung fitur share.");
-    }
-  };
   
 
 
