@@ -13,6 +13,7 @@ export async function searchHadith(query: string, hadits: string,limit:string) {
 
   try {
     const externalApiUrl = `${process.env.API_ENDPOINT_NGROK}/api/search`;
+    console.log("External API URL:", externalApiUrl);
 
     const response = await fetch(externalApiUrl, {
       method: "POST",
@@ -27,7 +28,6 @@ export async function searchHadith(query: string, hadits: string,limit:string) {
       })
     });
     
-    console.log(externalApiUrl);
     if (!response.ok) {
       return {error : response.statusText};
     }
