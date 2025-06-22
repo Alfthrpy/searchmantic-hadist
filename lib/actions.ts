@@ -1,7 +1,7 @@
 'use server'
 
-export async function searchHadith(query: string, hadits: string) {
-  if (!query.trim() || !hadits.trim()) {
+export async function searchHadith(query: string, hadits: string,limit:string) {
+  if (!query.trim() || !hadits.trim() || !limit.trim()) {
     return [];
   }
 
@@ -12,24 +12,29 @@ export async function searchHadith(query: string, hadits: string) {
   }
 
   try {
-    const externalApiUrl = `${process.env.API_ENDPOINT_NGROK}/api/search?query=${encodeURIComponent(
-      query
-    )}&hadits=${encodeURIComponent(hadits)}`;
+    const externalApiUrl = `${process.env.API_ENDPOINT_NGROK}/api/search`;
 
     const response = await fetch(externalApiUrl, {
-      method: "GET",
+      method: "POST",
       headers: {
-        Authorization: `Bearer ${SECRET_KEY}`,
+        'Content-Type': 'application/json', 
+        'Authorization': `Bearer ${SECRET_KEY}`,
       },
+      body: JSON.stringify({
+        "query": query,
+        "hadits": hadits,
+        "all_source":false
+      })
     });
-
+    
+    console.log(externalApiUrl);
     if (!response.ok) {
-      throw new Error(`Failed to fetch data: ${response.statusText}`);
+      return {error : response.statusText};
     }
-
     return await response.json();
-  } catch (error) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error : any) {
     console.error("Search error:", error);
-    throw new Error("Failed to fetch results");
+    return {error : error.message};
   }
 }

@@ -10,7 +10,7 @@ export default function ButtonSearch({ funClick, conditionLoading }: ButtonSearc
     <>
       <button
         onClick={funClick}
-        className="mt-4 btn-neutral text-white py-2 rounded-md btn btn-block max-w-xs mx-auto md:max-w-full"
+        className="btn-neutral text-white py-2 rounded-md btn btn-block max-w-xs mx-auto md:max-w-full"
       >
         {conditionLoading ? (
           <span className="loading loading-spinner"></span>

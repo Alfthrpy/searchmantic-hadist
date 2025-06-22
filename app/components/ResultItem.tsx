@@ -106,12 +106,6 @@ export default function ResultItem({ item }: ResultItemProps) {
           <p className="text-md mt-3 text-justify text-neutral">
             {item.text}
           </p>
-          <div className="badge mt-4 bg-accent text-neutral">
-            Similarity Score:{" "}
-            <span className="font-semibold ml-1 text-primary">
-              {(item.score * 100).toFixed(2)}%
-            </span>
-          </div>
         </div>
       </div>
       <hr className="mt-5" />

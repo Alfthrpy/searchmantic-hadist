@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { useState, useEffect, useTransition } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
@@ -10,9 +10,10 @@ export default function SearchForm() {
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
   const [query, setQuery] = useState(searchParams.get("query") || "");
-  
+  // const [limit, setLimit] = useState(10)
+
   // Dapatkan hadits dari pathname
-  const hadits = pathname.split('/').pop() || 'hadist_shahih_bukhari';
+  const hadits = pathname.split("/").pop() || "shahih_bukhari";
 
   const placeholderOptions = [
     "Kisah kisah Nabi Muhammad",
@@ -38,12 +39,13 @@ export default function SearchForm() {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     startTransition(() => {
       const params = new URLSearchParams(searchParams);
       if (query) {
         params.set("query", query);
         params.set("hadits", hadits);
+        // params.set('limit', limit.toString());
       } else {
         params.delete("query");
         params.delete("hadits");
@@ -53,7 +55,10 @@ export default function SearchForm() {
   };
 
   return (
-    <form onSubmit={handleSearch} className="w-full max-w-lg flex flex-col items-center mt-4">
+    <form
+      onSubmit={handleSearch}
+      className="w-full max-w-lg flex flex-col items-center mt-4"
+    >
       <label className="input input-bordered w-full flex items-center gap-2 max-w-xs mx-auto md:max-w-full">
         <input
           type="text"
@@ -76,8 +81,19 @@ export default function SearchForm() {
         </svg>
       </label>
 
-      <div className="flex justify-center w-full mt-2">
+      <div className="flex flex-col justify-center w-full mt-2 items-center">
         <ButtonSearch funClick={() => {}} conditionLoading={isPending} />
+        {/* <select
+          id="limit"
+          value={limit}
+          onChange={(e) => setLimit(Number(e.target.value))}
+          className="select select-bordered flex-shrink-0 w-32 text-sm mt-2"
+        >
+          <option value={10}>10 Hadits</option>
+          <option value={20}>20 Hadits</option>
+          <option value={50}>50 Hadits</option>
+          <option value={100}>100 Hadits</option>
+        </select> */}
       </div>
     </form>
   );
