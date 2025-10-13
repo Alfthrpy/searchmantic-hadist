@@ -1,19 +1,27 @@
+// ./components/SearchForm.tsx
+
 "use client";
 
 import { useState, useEffect, useTransition } from "react";
-import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import ButtonSearch from "./Button";
 
-export default function SearchForm() {
+// 1. Definisikan tipe untuk props yang diterima komponen ini
+interface SearchFormProps {
+  initialQuery?: string; // Tanda '?' berarti prop ini tidak wajib (opsional)
+  initialHadits?: string;
+}
+
+export default function SearchForm({
+  initialQuery,
+  initialHadits,
+}: SearchFormProps) { // 2. Terapkan tipe pada props
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
-  const [query, setQuery] = useState(searchParams.get("query") || "");
-  // const [limit, setLimit] = useState(10)
 
-  // Dapatkan hadits dari pathname
-  const hadits = pathname.split("/").pop() || "shahih_bukhari";
+  // Gunakan prop untuk nilai awal state
+  const [query, setQuery] = useState(initialQuery || "");
 
   const placeholderOptions = [
     "Kisah kisah Nabi Muhammad",
@@ -29,27 +37,15 @@ export default function SearchForm() {
     );
   }, []);
 
-  useEffect(() => {
-    // Update query ketika searchParams berubah
-    const currentQuery = searchParams.get("query");
-    if (currentQuery !== null) {
-      setQuery(currentQuery);
-    }
-  }, [searchParams]);
-
-  const handleSearch = (e: React.FormEvent) => {
+  // 3. Tambahkan tipe untuk event form (ini adalah praktik terbaik)
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     startTransition(() => {
-      const params = new URLSearchParams(searchParams);
-      console.warn("pathname di searchform : " + hadits)
+      const params = new URLSearchParams();
       if (query) {
         params.set("query", query);
-        params.set("hadits", hadits);
-        // params.set('limit', limit.toString());
-      } else {
-        params.delete("query");
-        params.delete("hadits");
+        params.set("hadits", initialHadits || "shahih_bukhari");
       }
       router.push(`${pathname}?${params.toString()}`);
     });
@@ -66,7 +62,10 @@ export default function SearchForm() {
           className="grow"
           placeholder={placeholder}
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          // 4. (Opsional) Tambahkan tipe untuk event input
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setQuery(e.target.value)
+          }
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -84,17 +83,6 @@ export default function SearchForm() {
 
       <div className="flex flex-col justify-center w-full mt-2 items-center">
         <ButtonSearch funClick={() => {}} conditionLoading={isPending} />
-        {/* <select
-          id="limit"
-          value={limit}
-          onChange={(e) => setLimit(Number(e.target.value))}
-          className="select select-bordered flex-shrink-0 w-32 text-sm mt-2"
-        >
-          <option value={10}>10 Hadits</option>
-          <option value={20}>20 Hadits</option>
-          <option value={50}>50 Hadits</option>
-          <option value={100}>100 Hadits</option>
-        </select> */}
       </div>
     </form>
   );
