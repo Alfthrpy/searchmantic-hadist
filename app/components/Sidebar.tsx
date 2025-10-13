@@ -1,7 +1,7 @@
 'use client';
 
 import React from "react";
-import { usePathname } from "next/navigation"; // Import usePathname
+import { useRouter, useSearchParams } from "next/navigation";
 import Hamburger from "./Hamburger";
 import Image from "next/image";
 
@@ -10,17 +10,23 @@ interface SidebarProps {
 }
 
 const items = [
-  { label: "Hadist Shahih Bukhari", href: "/shahih_bukhari" },
-  { label: "Hadist Shahih Muslim", href: "/shahih_muslim" },
-  { label: "Hadist Sunan Tirmidzi", href: "/sunan_tirmidzi" },
-  { label: "Hadist Sunan Nasai", href: "/sunan_nasai" },
-  { label: "Hadist Sunan Abu Daud", href: "/sunan_abu_daud" },
-  { label: "Hadist Sunan Ibnu Majah", href: "/sunan_ibnu_majah" },
+  { label: "Hadist Shahih Bukhari", hadits: "shahih_bukhari" },
+  { label: "Hadist Shahih Muslim", hadits: "shahih_muslim" },
+  { label: "Hadist Sunan Tirmidzi", hadits: "sunan_tirmidzi" },
+  { label: "Hadist Sunan Nasai", hadits: "sunan_nasai" },
+  { label: "Hadist Sunan Abu Daud", hadits: "sunan_abu_daud" },
+  { label: "Hadist Sunan Ibnu Majah", hadits: "sunan_ibnu_majah" },
 ];
 
-
 export default function Sidebar({ main }: SidebarProps) {
-  const pathname = usePathname(); // Dapatkan URI aktif
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const currentHadits = searchParams.get("hadits") || "shahih_bukhari";
+
+  const handleNavigation = (hadits: string) => {
+    // Update URL dengan query parameter hadits tanpa reload page penuh
+    router.push(`/?hadits=${hadits}`);
+  };
 
   return (
     <div className="drawer drawer-mobile">
@@ -32,39 +38,26 @@ export default function Sidebar({ main }: SidebarProps) {
 
       {/* Sidebar */}
       <div className="drawer-side">
-        <label
-          htmlFor="my-drawer"
-          aria-label="close sidebar"
-          className="drawer-overlay sticky top-0"
-        ></label>
+        <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay sticky top-0"></label>
 
         <ul className="menu bg-base-200 text-base-content w-80 p-4 min-h-full">
-          <h1 className="text-xl font-bold text-neutral ml-4 mb-4">
-            Searchmantic Hadist
-          </h1>
+          <h1 className="text-xl font-bold text-neutral ml-4 mb-4">Searchmantic Hadist</h1>
           <li>
             <h2 className="menu-title flex items-center">
-              <Image
-                src="/book-bookmark.svg"
-                alt="icon"
-                width={20}
-                height={20}
-                className="mr-2 text-primary"
-              />
+              <Image src="/book-bookmark.svg" alt="icon" width={20} height={20} className="mr-2 text-primary" />
               Source
             </h2>
 
             <ul>
               {items.map((item) => (
-                <li key={item.label}>
-                  <a
-                    href={item.href}
-                    className={`text-md text-neutral ${
-                      pathname === item.href ? "active" : ""
-                    }`}
+                <li key={item.hadits}>
+                  <button
+                    type="button"
+                    onClick={() => handleNavigation(item.hadits)}
+                    className={`text-md text-neutral ${currentHadits === item.hadits ? "active" : ""}`}
                   >
                     {item.label}
-                  </a>
+                  </button>
                 </li>
               ))}
             </ul>
