@@ -1,7 +1,7 @@
 'use server'
 
-export async function searchHadith(query: string, hadits: string,limit:string) {
-  if (!query.trim() || !hadits.trim() || !limit.trim()) {
+export async function searchHadith(query: string, hadits: string) {
+  if (!query.trim() || !hadits.trim()) {
     return [];
   }
 

@@ -10,14 +10,12 @@ interface SearchResultsProps {
 export default async function SearchResults({ searchParams }: SearchResultsProps) {
   const query = searchParams.query as string;
   const hadits = searchParams.hadits as string;
-  const limit = searchParams.limit as string;
 
   if (!query) return null;
   if (!hadits) return null;
-  if (!limit) return null;
 
   try {
-    const results = await searchHadith(query, hadits,limit);
+    const results = await searchHadith(query, hadits);
 
     return (
       <div
