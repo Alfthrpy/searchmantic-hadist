@@ -6,7 +6,10 @@ import SearchResults from "../components/SearchResult";
 
 
 interface PageProps {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: {
+    query: string;
+    hadits: string;
+  };
 }
 
   
