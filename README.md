@@ -1,36 +1,104 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# searchmantic-hadist
 
-## Getting Started
+![Next.js](https://img.shields.io/badge/-Next.js-blue?logo=nextjs&logoColor=white) ![React](https://img.shields.io/badge/-React-blue?logo=react&logoColor=white) ![TypeScript](https://img.shields.io/badge/-TypeScript-blue?logo=typescript&logoColor=white)
 
-First, run the development server:
+## 📝 Description
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Embark on a journey through the wisdom of Hadith with Searchmantic-Hadist, a modern web application built with Next.js, React, and TypeScript. This project offers a seamless and intuitive platform for exploring and understanding the rich collection of Hadith literature. Experience a user-friendly interface designed for effortless navigation and efficient information retrieval. Searchmantic-Hadist empowers users to delve deeper into Islamic teachings through a cutting-edge web experience.
+
+## ✨ Features
+
+- 🕸️ Web
+
+
+## 🛠️ Tech Stack
+
+-  Next.js
+-  React
+-  TypeScript
+-  Sbert Embedding
+-  FastAPI
+
+
+
+## 📦 Key Dependencies
+
+```
+@heroicons/react: ^2.1.5
+@next/font: ^14.2.13
+next: ^14.2.11
+pg: ^8.12.0
+react: ^18.3.1
+react-dom: ^18.3.1
+searchmantic_hadist: file:
+sweetalert2: ^11.14.5
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Run Commands
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **dev**: `npm run dev`
+- **build**: `npm run build`
+- **start**: `npm run start`
+- **lint**: `npm run lint`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+## 📁 Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+.
+├── app
+│   ├── [hadits]
+│   │   └── page.tsx
+│   ├── components
+│   │   ├── Button.tsx
+│   │   ├── Hamburger.tsx
+│   │   ├── ResultItem.tsx
+│   │   ├── SearchForm.tsx
+│   │   ├── SearchResult.tsx
+│   │   ├── Sidebar.tsx
+│   │   └── Skeletons.tsx
+│   ├── favicon.ico
+│   ├── fonts
+│   │   ├── GeistMonoVF.woff
+│   │   └── GeistVF.woff
+│   ├── globals.css
+│   ├── layout.tsx
+│   ├── loading.tsx
+│   └── page.tsx
+├── lib
+│   └── actions.ts
+├── next.config.mjs
+├── package.json
+├── postcss.config.mjs
+├── public
+│   ├── bghadits.png
+│   └── book-bookmark.svg
+├── tailwind.config.ts
+├── tsconfig.json
+└── utils
+    └── formatTitle.tsx
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🛠️ Development Setup
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Node.js/JavaScript Setup
+1. Install Node.js (v18+ recommended)
+2. Install dependencies: `npm install` or `yarn install`
+3. Start development server: (Check scripts in `package.json`, e.g., `npm run dev`)
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 👥 Contributing
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Contributions are welcome! Here's how you can help:
+
+1. **Fork** the repository
+2. **Clone** your fork: `git clone https://github.com/Alfthrpy/searchmantic-hadist.git`
+3. **Create** a new branch: `git checkout -b feature/your-feature`
+4. **Commit** your changes: `git commit -am 'Add some feature'`
+5. **Push** to your branch: `git push origin feature/your-feature`
+6. **Open** a pull request
+
+Please ensure your code follows the project's style guidelines and includes tests where applicable.
+
+---
+*This README was generated with ❤️ by ReadmeBuddy*
