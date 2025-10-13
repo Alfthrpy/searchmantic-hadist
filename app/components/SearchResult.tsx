@@ -1,4 +1,3 @@
-
 import { Key } from "react";
 import ResultItem from "./ResultItem";
 import { searchHadith } from "@/lib/actions";
@@ -9,22 +8,30 @@ interface SearchResultsProps {
     hadits: string;
   };
 }
-export default async function SearchResults({ searchParams }: SearchResultsProps) {
+export default async function SearchResults({
+  searchParams,
+}: SearchResultsProps) {
   const query = searchParams.query;
   const hadits = searchParams.hadits;
 
   if (!query || !hadits) {
-    return (
-      <div className="w-full max-w-screen-xl mt-6">
-        <p className="text-red-600 flex justify-center">
-          Peringatan: Query dan Hadits harus diisi.
-        </p>
-      </div>
-    );
+    console.warn("Validasi gagal: Query dan Hadits harus diisi", {
+      query,
+      hadits,
+    });
+    return null;
   }
 
   try {
     const results = await searchHadith(query, hadits);
+
+    if (!query || !hadits) {
+      console.warn("Validasi gagal: Query dan Hadits harus diisi", {
+        query,
+        hadits,
+      });
+      return null;
+    }
 
     return (
       <div
@@ -37,9 +44,20 @@ export default async function SearchResults({ searchParams }: SearchResultsProps
               Menampilkan {results.length} Hadits yang relevan
             </p>
             <ul className="space-y-3">
-              {results.results.map((item: { text_arab: string; text: string; kitab: string; id: string; score: number; }, index: Key | null | undefined) => (
-                <ResultItem key={index} item={item} />
-              ))}
+              {results.results.map(
+                (
+                  item: {
+                    text_arab: string;
+                    text: string;
+                    kitab: string;
+                    id: string;
+                    score: number;
+                  },
+                  index: Key | null | undefined
+                ) => (
+                  <ResultItem key={index} item={item} />
+                )
+              )}
             </ul>
           </>
         ) : (
@@ -51,7 +69,8 @@ export default async function SearchResults({ searchParams }: SearchResultsProps
     return (
       <div className="w-full max-w-screen-xl mt-6">
         <p className="flex justify-center text-red-500">
-          Terjadi kesalahan: {error instanceof Error ? error.message : 'Kesalahan tidak diketahui'}
+          Terjadi kesalahan:{" "}
+          {error instanceof Error ? error.message : "Kesalahan tidak diketahui"}
         </p>
       </div>
     );

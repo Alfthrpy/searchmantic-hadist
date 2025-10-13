@@ -4,12 +4,14 @@ import { Suspense } from "react";
 import SearchResults from "./components/SearchResult";
 import Skeleton from "./components/Skeletons";
 
+
 interface PageProps {
   searchParams: {
     query: string;
     hadits: string;
   };
 }
+
 
 
 export default function Page({ searchParams }: PageProps) {
