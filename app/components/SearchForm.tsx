@@ -42,6 +42,7 @@ export default function SearchForm() {
 
     startTransition(() => {
       const params = new URLSearchParams(searchParams);
+      console.log("pathname di searchform : " + hadits)
       if (query) {
         params.set("query", query);
         params.set("hadits", hadits);

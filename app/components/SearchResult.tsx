@@ -21,6 +21,8 @@ export default async function SearchResults({
       hadits,
     });
     return null;
+  } else {
+    console.log('query =' + query + ' ' + hadits)
   }
 
   try {
