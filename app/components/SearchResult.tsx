@@ -11,30 +11,22 @@ interface SearchResultsProps {
 export default async function SearchResults({
   searchParams,
 }: SearchResultsProps) {
-  const params = await searchParams;
-  const query = params.query;
-  const hadits = params.hadits;
+  const query = searchParams.query;
+  const hadits = searchParams.hadits;
 
   if (!query || !hadits) {
-    console.warn("Validasi gagal: Query dan Hadits harus diisi", {
-      query,
-      hadits,
-    });
-    return null;
-  } else {
-    console.log('query =' + query + ' ' + hadits)
-  }
-
-  try {
-    const results = await searchHadith(query, hadits);
-
-    if (!query || !hadits) {
       console.warn("Validasi gagal: Query dan Hadits harus diisi", {
         query,
         hadits,
       });
       return null;
     }
+
+  try {
+    console.warn("di search result : query : " + query + " hadits : " + hadits)
+    const results = await searchHadith(query, hadits);
+
+
 
     return (
       <div
