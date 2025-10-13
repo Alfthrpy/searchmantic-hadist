@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Sidebar from "./components/Sidebar";
+import { Suspense } from 'react'; // <-- TAMBAHKAN INI
 
 import { Amiri, Inter } from '@next/font/google';
 
@@ -32,20 +33,37 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-theme="autumn">
-      <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Amiri&display=swap"
-          rel="stylesheet"
-        />
-        <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet"/>
-        
-      </head>
+      {/* ... bagian <head> tetap sama ... */}
 
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${inter.className} ${amiri.className}antialiased`}
       >
-        <Sidebar main={children} />
+        {/* Bungkus Sidebar di sini */}
+        <Suspense fallback={<LoadingSidebar>{children}</LoadingSidebar>}>
+          <Sidebar main={children} />
+        </Suspense>
       </body>
     </html>
   );
 }
+
+const LoadingSidebar = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <div className="drawer drawer-mobile">
+      <input id="my-drawer" type="checkbox" className="drawer-toggle" />
+      <div className="drawer-content">
+        {children} {/* Tetap render children agar halaman tidak kosong */}
+      </div>
+      <div className="drawer-side">
+        <label htmlFor="my-drawer" className="drawer-overlay"></label>
+        <ul className="menu bg-base-200 w-80 p-4">
+          {/* Ini adalah versi loading state dari sidebar */}
+          <li className="h-8 w-3/4 bg-gray-300 rounded animate-pulse mb-4"></li>
+          <li className="h-6 w-1/2 bg-gray-300 rounded animate-pulse mb-2"></li>
+          <li className="h-6 w-1/2 bg-gray-300 rounded animate-pulse mb-2"></li>
+          <li className="h-6 w-1/2 bg-gray-300 rounded animate-pulse mb-2"></li>
+        </ul>
+      </div>
+    </div>
+  );
+};
