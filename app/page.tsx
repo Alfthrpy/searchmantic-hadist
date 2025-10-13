@@ -1,20 +1,13 @@
 import SearchForm from "./components/SearchForm";
 
 import { Suspense } from "react";
-import SearchResults from "./components/SearchResult";
 import Skeleton from "./components/Skeletons";
-
-
-interface PageProps {
-  searchParams: {
-    query: string;
-    hadits: string;
-  };
-}
+import SearchResultWrapper from "./components/SearchResultWrapper";
 
 
 
-export default function Page({ searchParams }: PageProps) {
+
+export default function Page() {
   return (
     <div className="min-h-screen flex flex-col items-center pt-6">
       <h1 className="text-center text-[1.5rem] font-bold text-[#826a5c] sm:text-[1.875rem] md:text-[2.25rem] lg:text-[2.5rem]">
@@ -22,7 +15,7 @@ export default function Page({ searchParams }: PageProps) {
       </h1>
       <SearchForm />
       <Suspense fallback={<Skeleton/>}>
-        <SearchResults searchParams={searchParams} />
+        <SearchResultWrapper />
       </Suspense>
     </div>
   );
