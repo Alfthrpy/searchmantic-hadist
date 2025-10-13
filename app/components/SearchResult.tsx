@@ -11,8 +11,9 @@ interface SearchResultsProps {
 export default async function SearchResults({
   searchParams,
 }: SearchResultsProps) {
-  const query = searchParams.query;
-  const hadits = searchParams.hadits;
+  const params = await searchParams;
+  const query = params.query;
+  const hadits = params.hadits;
 
   if (!query || !hadits) {
     console.warn("Validasi gagal: Query dan Hadits harus diisi", {
