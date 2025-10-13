@@ -4,15 +4,24 @@ import ResultItem from "./ResultItem";
 import { searchHadith } from "@/lib/actions";
 
 interface SearchResultsProps {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: {
+    query: string;
+    hadits: string;
+  };
 }
-
 export default async function SearchResults({ searchParams }: SearchResultsProps) {
-  const query = searchParams.query as string;
-  const hadits = searchParams.hadits as string;
+  const query = searchParams.query;
+  const hadits = searchParams.hadits;
 
-  if (!query) return null;
-  if (!hadits) return null;
+  if (!query || !hadits) {
+    return (
+      <div className="w-full max-w-screen-xl mt-6">
+        <p className="text-red-600 flex justify-center">
+          Peringatan: Query dan Hadits harus diisi.
+        </p>
+      </div>
+    );
+  }
 
   try {
     const results = await searchHadith(query, hadits);
