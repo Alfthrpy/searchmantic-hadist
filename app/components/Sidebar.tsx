@@ -24,8 +24,12 @@ export default function Sidebar({ main }: SidebarProps) {
   const currentHadits = searchParams.get("hadits") || "shahih_bukhari";
 
   const handleNavigation = (hadits: string) => {
-    // Update URL dengan query parameter hadits tanpa reload page penuh
+    // Update URL tanpa reload penuh
     router.push(`/?hadits=${hadits}`);
+
+    // Tutup drawer setelah klik
+    const drawerCheckbox = document.getElementById("my-drawer") as HTMLInputElement | null;
+    if (drawerCheckbox) drawerCheckbox.checked = false;
   };
 
   return (
